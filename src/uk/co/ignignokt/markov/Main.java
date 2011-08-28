@@ -10,7 +10,6 @@ public class Main {
 		System.out.println(wm.getSentence());
 		System.out.println(wm.getSentence());
 		System.out.println(wm.getSentence());
-		System.out.println(wm.getSentence());
 
 		long endTime = System.currentTimeMillis();
 		
