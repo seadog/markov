@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Markov {
-	WordList master;
+	WordList master = new WordList();
 	StringBuilder document = new StringBuilder();
 
 	private void parsetext(String text){
@@ -19,8 +19,6 @@ public class Markov {
 	}
 	
 	public Markov(String filename) throws IOException{
-		master = new WordList();
-
 		FileReader fr = null;
 
 		try {
