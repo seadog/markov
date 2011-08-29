@@ -51,7 +51,7 @@ public class IrcMarkov implements Markov {
 			current = current.getNext();
 			if(current == null) return retval.toString();
 		}
-
+		
 		return retval.toString();
 	}
 	

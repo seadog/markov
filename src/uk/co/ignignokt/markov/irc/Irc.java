@@ -40,6 +40,7 @@ public class Irc {
 	}
 
 	public Irc getNext(){
+		if(next.size() == 0) return null;
 		Random generator = new Random();
 		int randomInt = generator.nextInt(next.size());
 		
