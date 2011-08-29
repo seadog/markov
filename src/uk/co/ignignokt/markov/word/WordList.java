@@ -3,9 +3,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-
-
-
 public class WordList {
 	private Map<String, Word> words;
 	
@@ -13,34 +10,32 @@ public class WordList {
 		words = new HashMap<String, Word>();
 	}
 	
-	public void addWord(String word, String next){
-		if(word.equals("\n") && next.equals("\n")) return;
-		
+	public void addWord(int i, String word, String next){
 		Word entry = words.get(word);
 		Word to = words.get(next);
-
+		
 		if(entry == null){
-			entry = new Word(word);
+			if(i == 0)
+				entry = new Word(word, true);
+			else
+				entry = new Word(word);
 			words.put(word, entry);
 		}
-		
-		if(!next.equals("\n")){
-			if(to == null){
-				to = new Word(next);
-				words.put(next, to);
-			}
 
-			entry.addWord(to);
+		if(to == null){
+			to = new Word(next);
+			words.put(next, to);
 		}
+
+		entry.addWord(to);
 	}
 	
 	public Word getRandom(){
 		Random generator = new Random();
 		int randomInt = generator.nextInt(words.size());
-		
+
 		Object[] randoms = words.values().toArray();
-		
-		
+
 		return (Word) randoms[randomInt];
 	}
 }

@@ -3,33 +3,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/** TODO: must fix the crappy init/end stuff */
 public class Word {
 	private String text;
 	private List<Word> next;
 	
-	private boolean initialWord = false;
-	private boolean endWord = false;
-
+	private boolean start = false;;
+	
 	public Word(String text){
 		next = new ArrayList<Word>();
-		
-		char initialCharacter = text.charAt(0);
-		
-		initialWord = Character.isUpperCase(initialCharacter);
-		if(text.charAt(text.length()-1) == '.' && !initialWord){
-			endWord = true;
-		}
 		
 		this.text = text;
 	}
 	
-	public boolean getInitWord(){
-		return initialWord;
+	public Word(String text, boolean start){
+		this(text);
+		this.start = start;
 	}
 	
-	public boolean getEndWord(){
-		return endWord;
+	public boolean isStart(){
+		return start;
 	}
 	
 	public int getSize(){
@@ -46,8 +38,6 @@ public class Word {
 
 	public Word getNext(){
 		Random generator = new Random();
-		if(next.size() == 0) return null; // hack for end of paragraph, non-.'ed ends.
-
 		int randomInt = generator.nextInt(next.size());
 		
 		return next.get(randomInt);
