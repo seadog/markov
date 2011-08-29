@@ -11,7 +11,7 @@ public class WordMarkov implements Markov {
 		String[] list = removed.split(" +");
 		
 		for(int i = 0; i < list.length-2; i++){
-			master.addWord(i, list[i], list[i+1]);
+			master.addWord(list[i], list[i+1]);
 		}
 	}
 
@@ -22,8 +22,6 @@ public class WordMarkov implements Markov {
 		StringBuilder retval = new StringBuilder();
 		
 		Word current = master.getRandom();
-		
-		while(!current.isStart()) current = master.getRandom();
 		
 		while(limit-- > 0){
 			retval.append(current.getText());

@@ -10,15 +10,12 @@ public class WordList {
 		words = new HashMap<String, Word>();
 	}
 	
-	public void addWord(int i, String word, String next){
+	public void addWord(String word, String next){
 		Word entry = words.get(word);
 		Word to = words.get(next);
 		
 		if(entry == null){
-			if(i == 0)
-				entry = new Word(word, true);
-			else
-				entry = new Word(word);
+			entry = new Word(word);
 			words.put(word, entry);
 		}
 
