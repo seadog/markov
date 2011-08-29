@@ -1,5 +1,8 @@
 package uk.co.ignignokt.markov.word;
 
+import java.util.Collection;
+import java.util.List;
+
 import uk.co.ignignokt.markov.Markov;
 
 public class WordMarkov implements Markov {
@@ -11,12 +14,29 @@ public class WordMarkov implements Markov {
 
 		String[] list = removed.split(" +");
 		
-		for(int i = 0; i < list.length-2; i++){
+		for(int i = 0; i < list.length-1; i++){
 			master.addWord(list[i], list[i+1]);
 		}
 	}
 
 	public WordMarkov(){
+	}
+	
+	public String getStructure(){
+		StringBuilder retval = new StringBuilder();
+		
+		Collection<Word> words = master.getStructure();
+		
+		for(Word word : words){
+			retval.append(word.getText() + " -> " + word.isStart() + " : " + word.isEnd() + "\n");
+			List<Word> children = word.getChildren();
+			
+			for(Word child : children){
+				retval.append("    " +  child.getText() + "\n");
+			}
+		}
+		
+		return retval.toString();
 	}
 	
 	public String getLimit(int limit){

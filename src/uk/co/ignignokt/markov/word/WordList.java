@@ -1,4 +1,5 @@
 package uk.co.ignignokt.markov.word;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -25,6 +26,10 @@ public class WordList {
 		}
 
 		entry.addWord(to);
+	}
+	
+	public Collection<Word> getStructure(){
+		return words.values();
 	}
 	
 	public Word getRandom(){

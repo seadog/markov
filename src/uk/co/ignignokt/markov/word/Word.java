@@ -14,7 +14,7 @@ public class Word {
 		next = new ArrayList<Word>();
 		
 		this.text = text;
-		
+
 		if(Character.isUpperCase(text.charAt(0))){
 			start = true;
 		}
@@ -22,6 +22,10 @@ public class Word {
 		if(text.charAt(text.length()-1) == '.'){
 			end = true;
 		}
+	}
+	
+	public List<Word> getChildren(){
+		return next;
 	}
 	
 	public boolean isStart(){

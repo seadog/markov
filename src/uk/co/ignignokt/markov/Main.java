@@ -13,6 +13,8 @@ public class Main {
 		FileReader fr = new FileReader("data.txt");
 		BufferedReader br = new BufferedReader(fr);
 		
+		br.read(); // get rid of first byte of file bug.
+		
 		String line;
 		StringBuilder builder = new StringBuilder();
 		
@@ -27,6 +29,9 @@ public class Main {
 			}
 		}
 		
+		wm.addParagraph(builder.toString());
+		
+		//System.out.println(wm.getStructure());
 		System.out.println(wm.getSentence());
 	}
 }
