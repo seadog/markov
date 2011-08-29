@@ -6,6 +6,7 @@ public class WordMarkov implements Markov {
 	WordList master = new WordList();
 
 	public void addParagraph(String paragraph){
+		paragraph = paragraph.trim();
 		String removed = paragraph.replace('\n', ' ');
 
 		String[] list = removed.split(" +");
@@ -35,7 +36,20 @@ public class WordMarkov implements Markov {
 	}
 	
 	public String getSentence(){
-		//TODO: fix this!1
-		return getLimit(20);
+		StringBuilder retval = new StringBuilder();
+		
+		Word current = master.getRandom();
+		
+		while(!current.isStart()) current = master.getRandom();
+		
+		while(!current.isEnd()){
+			retval.append(current.getText());
+			retval.append(" ");
+			current = current.getNext();
+		}
+		
+		retval.append(current.getText()); retval.append(" ");
+		
+		return retval.toString();
 	}
 }

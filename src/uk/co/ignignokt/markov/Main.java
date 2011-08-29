@@ -27,6 +27,6 @@ public class Main {
 			}
 		}
 		
-		System.out.println(wm.getLimit(20));
+		System.out.println(wm.getSentence());
 	}
 }

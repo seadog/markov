@@ -6,11 +6,30 @@ import java.util.Random;
 public class Word {
 	private String text;
 	private List<Word> next;
+	
+	boolean start = false;
+	boolean end = false;
 
 	public Word(String text){
 		next = new ArrayList<Word>();
 		
 		this.text = text;
+		
+		if(Character.isUpperCase(text.charAt(0))){
+			start = true;
+		}
+		
+		if(text.charAt(text.length()-1) == '.'){
+			end = true;
+		}
+	}
+	
+	public boolean isStart(){
+		return start;
+	}
+	
+	public boolean isEnd(){
+		return end;
 	}
 	
 	public int getSize(){
