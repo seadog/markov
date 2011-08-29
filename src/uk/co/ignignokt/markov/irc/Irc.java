@@ -8,7 +8,6 @@ public class Irc {
 	private List<Irc> next;
 	
 	boolean start = false;
-	boolean end = false;
 
 	public Irc(String text){
 		next = new ArrayList<Irc>();
@@ -24,16 +23,8 @@ public class Irc {
 		this.start = value;
 	}
 	
-	public void setEnd(boolean value){
-		this.end = value;
-	}
-	
 	public boolean isStart(){
 		return start;
-	}
-	
-	public boolean isEnd(){
-		return end;
 	}
 	
 	public int getSize(){

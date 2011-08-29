@@ -26,8 +26,6 @@ public class IrcList {
 		}
 		
 		if(i == 0) entry.setStart(true);
-		if(i+1 == length) to.setEnd(true);
-
 		entry.addWord(to);
 	}
 	

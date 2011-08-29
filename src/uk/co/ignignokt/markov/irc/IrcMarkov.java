@@ -28,7 +28,7 @@ public class IrcMarkov implements Markov {
 		Collection<Irc> words = master.getStructure();
 		
 		for(Irc word : words){
-			retval.append(word.getText() + " -> " + word.isStart() + " : " + word.isEnd() + "\n");
+			retval.append(word.getText() + " -> " + word.isStart() + "\n");
 			List<Irc> children = word.getChildren();
 			
 			for(Irc child : children){
@@ -56,20 +56,6 @@ public class IrcMarkov implements Markov {
 	}
 	
 	public String getSentence(){
-		StringBuilder retval = new StringBuilder();
-		
-		Irc current = master.getRandom();
-		
-		while(!current.isStart()) current = master.getRandom();
-		
-		while(!current.isEnd()){
-			retval.append(current.getText());
-			retval.append(" ");
-			current = current.getNext();
-		}
-		
-		retval.append(current.getText()); retval.append(" ");
-		
-		return retval.toString();
+		return getLimit(20);
 	}
 }
