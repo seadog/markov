@@ -33,7 +33,12 @@ public class MarkovParser {
 		
 		try {
 			while((line = br.readLine()) != null){
-				document.append(line);
+				if(line.equals("")){ 
+					document.append("\n");
+				} else {
+					document.append(line);
+				}
+				
 				document.append(" ");
 			}
 		} catch(IOException e) {

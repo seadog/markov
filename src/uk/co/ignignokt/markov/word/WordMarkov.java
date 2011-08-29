@@ -9,8 +9,7 @@ public class WordMarkov implements Markov {
 	private void parsewords(String text){
 		String[] words = text.split(" +");
 		
-		for(int i = 0; i < words.length -2; i++){
-			if(words[i].equals("") || words[i+1].equals("")) continue;
+		for(int i = 0; i < words.length -1; i++){
 			master.addWord(words[i], words[i+1]);
 		}
 	}
@@ -42,6 +41,7 @@ public class WordMarkov implements Markov {
 			retval.append(" ");
 			
 			current = current.getNext();
+			if(current == null) return retval.toString();
 		}
 		
 		retval.append(current.getText());
@@ -59,14 +59,9 @@ public class WordMarkov implements Markov {
 			retval.append(" ");
 			
 			current = current.getNext();
+			if(current == null) return retval.toString();
 		}
 
 		return retval.toString();
-	}
-	
-	public static void main(String[] args){
-		WordMarkov markov = new WordMarkov("data.txt");
-		
-		System.out.println(markov.getSentence());
 	}
 }

@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-
+/** TODO: must fix the crappy init/end stuff */
 public class Word {
 	private String text;
 	private List<Word> next;
@@ -46,6 +46,8 @@ public class Word {
 
 	public Word getNext(){
 		Random generator = new Random();
+		if(next.size() == 0) return null; // hack for end of paragraph, non-.'ed ends.
+
 		int randomInt = generator.nextInt(next.size());
 		
 		return next.get(randomInt);

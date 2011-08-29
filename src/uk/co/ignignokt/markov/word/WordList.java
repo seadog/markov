@@ -14,6 +14,8 @@ public class WordList {
 	}
 	
 	public void addWord(String word, String next){
+		if(word.equals("\n") && next.equals("\n")) return;
+		
 		Word entry = words.get(word);
 		Word to = words.get(next);
 
@@ -21,12 +23,15 @@ public class WordList {
 			entry = new Word(word);
 			words.put(word, entry);
 		}
-		if(to == null){
-			to = new Word(next);
-			words.put(next, to);
-		}
+		
+		if(!next.equals("\n")){
+			if(to == null){
+				to = new Word(next);
+				words.put(next, to);
+			}
 
-		entry.addWord(to);
+			entry.addWord(to);
+		}
 	}
 	
 	public Word getRandom(){
