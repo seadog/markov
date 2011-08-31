@@ -11,7 +11,7 @@ public class WordList {
 		words = new HashMap<String, Word>();
 	}
 	
-	public void addWord(String word, String next){
+	public void addWord(String word, String next, boolean first){
 		Word entry = words.get(word);
 		if(next == null){
 			if(entry == null){
@@ -20,6 +20,10 @@ public class WordList {
 			}
 			
 			entry.addWord(null);
+			
+			if(first)
+				entry.setStart(true);
+			
 			return;
 		}
 		
@@ -34,8 +38,15 @@ public class WordList {
 			to = new Word(next);
 			words.put(next, to);
 		}
-
+		
+		if(first)
+			entry.setStart(true);
+		
 		entry.addWord(to);
+	}
+	
+	public void addWord(String word, String next){
+		addWord(word, next, false);
 	}
 	
 	public Collection<Word> getStructure(){

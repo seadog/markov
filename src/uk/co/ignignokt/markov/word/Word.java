@@ -7,16 +7,19 @@ public class Word {
 	private String text;
 	private List<Word> next;
 	
-	boolean start = false;
+	private boolean start = false;
 
 	public Word(String text){
 		next = new ArrayList<Word>();
 		
 		this.text = text;
-
-		if(Character.isUpperCase(text.charAt(0))){
-			start = true;
-		}
+	}
+	
+	public Word(String text, boolean first){
+		this(text);
+			
+		if(first)
+			this.setStart(true);
 	}
 
 	public List<Word> getChildren(){
@@ -25,6 +28,10 @@ public class Word {
 
 	public boolean isStart(){
 		return start;
+	}
+	
+	public void setStart(boolean value){
+		this.start = value;
 	}
 
 	public int getSize(){

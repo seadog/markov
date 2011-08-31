@@ -16,7 +16,9 @@ public class Markov {
 		String[] list = removed.split(" +");
 		
 		for(int i = 0; i < list.length; i++){
-			if(i == list.length-1)
+			if(i == 0)
+				master.addWord(list[i], list[i+1], true);
+			else if(i == list.length-1)
 				master.addWord(list[i], null);
 			else
 				master.addWord(list[i], list[i+1]);
