@@ -4,12 +4,11 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import uk.co.ignignokt.markov.word.WordMarkov;
 import uk.co.ignignokt.markov.external.*;
 
 public class Main {
 	public static void main(String[] args) throws IOException{
-		WordMarkov wm = new WordMarkov();
+		Markov wm = new Markov();
 		
 		FileInputStream fis = new FileInputStream("data.txt");
 		UnicodeReader ur = new UnicodeReader(fis, "UTF-8");

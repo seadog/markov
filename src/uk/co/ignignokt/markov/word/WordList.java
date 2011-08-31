@@ -13,6 +13,16 @@ public class WordList {
 	
 	public void addWord(String word, String next){
 		Word entry = words.get(word);
+		if(next == null){
+			if(entry == null){
+				entry = new Word(word);
+				words.put(word, entry);
+			}
+			
+			entry.addWord(null);
+			return;
+		}
+		
 		Word to = words.get(next);
 		
 		if(entry == null){
