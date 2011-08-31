@@ -14,9 +14,11 @@ public class Markov {
 		String removed = sentence.replace('\n', ' ');
 		
 		String[] list = removed.split(" +");
-		
+
 		for(int i = 0; i < list.length; i++){
-			if(i == 0)
+			if(i == 0 && list.length == 1)
+				master.addWord(list[i], null, true);
+			else if(i == 0)
 				master.addWord(list[i], list[i+1], true);
 			else if(i == list.length-1)
 				master.addWord(list[i], null);
