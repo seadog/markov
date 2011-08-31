@@ -19,7 +19,7 @@ public class Main {
 		
 		while((line = br.readLine()) != null){
 			if(line.equals("")){
-				wm.addParagraph(builder.toString());
+				wm.addSentence(builder.toString());
 				builder = new StringBuilder();
 				continue;
 			} else {
@@ -28,7 +28,7 @@ public class Main {
 			}
 		}
 		
-		wm.addParagraph(builder.toString());
+		wm.addSentence(builder.toString());
 		
 		System.out.println(wm.getSentence());
 	}

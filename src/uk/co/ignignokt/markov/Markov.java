@@ -9,10 +9,10 @@ import uk.co.ignignokt.markov.word.WordList;
 public class Markov {
 	WordList master = new WordList();
 
-	public void addParagraph(String paragraph){
-		paragraph = paragraph.trim();
-		String removed = paragraph.replace('\n', ' ');
-
+	public void addSentence(String sentence){
+		sentence = sentence.trim();
+		String removed = sentence.replace('\n', ' ');
+		
 		String[] list = removed.split(" +");
 		
 		for(int i = 0; i < list.length; i++){
