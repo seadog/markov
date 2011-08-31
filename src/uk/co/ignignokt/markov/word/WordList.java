@@ -1,14 +1,18 @@
 package uk.co.ignignokt.markov.word;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
 public class WordList {
 	private Map<String, Word> words;
+	private List<Word> start_words;
 	
 	public WordList(){
 		words = new HashMap<String, Word>();
+		start_words = new ArrayList<Word>();
 	}
 	
 	public void addWord(String word, String next, boolean first){
@@ -22,7 +26,7 @@ public class WordList {
 			entry.addWord(null);
 			
 			if(first)
-				entry.setStart(true);
+				start_words.add(entry);
 			
 			return;
 		}
@@ -40,7 +44,7 @@ public class WordList {
 		}
 		
 		if(first)
-			entry.setStart(true);
+			start_words.add(entry);
 		
 		entry.addWord(to);
 	}
@@ -53,12 +57,10 @@ public class WordList {
 		return words.values();
 	}
 	
-	public Word getRandom(){
+	public Word getStart(){
 		Random generator = new Random();
-		int randomInt = generator.nextInt(words.size());
+		int randomInt = generator.nextInt(start_words.size());
 
-		Object[] randoms = words.values().toArray();
-
-		return (Word) randoms[randomInt];
+		return start_words.get(randomInt);
 	}
 }

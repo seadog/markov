@@ -6,32 +6,15 @@ import java.util.Random;
 public class Word {
 	private String text;
 	private List<Word> next;
-	
-	private boolean start = false;
 
 	public Word(String text){
 		next = new ArrayList<Word>();
 		
 		this.text = text;
 	}
-	
-	public Word(String text, boolean first){
-		this(text);
-			
-		if(first)
-			this.setStart(true);
-	}
 
 	public List<Word> getChildren(){
 		return next;
-	}
-
-	public boolean isStart(){
-		return start;
-	}
-	
-	public void setStart(boolean value){
-		this.start = value;
 	}
 
 	public int getSize(){

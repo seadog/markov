@@ -33,7 +33,7 @@ public class Markov {
 		Collection<Word> words = master.getStructure();
 
 		for(Word word : words){
-			retval.append(word.getText() + "->" + word.isStart() + "\n");
+			retval.append(word.getText() + "\n");
 			List<Word> children = word.getChildren();
 			
 			for(Word child : children){
@@ -50,7 +50,7 @@ public class Markov {
 	public String getLimit(int limit){
 		StringBuilder retval = new StringBuilder();
 		
-		Word current = master.getRandom();
+		Word current = master.getStart();
 		
 		while(limit-- > 0){
 			retval.append(current.getText());
@@ -66,9 +66,7 @@ public class Markov {
 	public String getSentence(){
 		StringBuilder retval = new StringBuilder();
 		
-		Word current = master.getRandom();
-		
-		while(!current.isStart()) current = master.getRandom();
+		Word current = master.getStart();
 		
 		while(current != null){
 			retval.append(current.getText());
