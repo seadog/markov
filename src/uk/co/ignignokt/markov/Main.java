@@ -30,6 +30,7 @@ public class Main {
 		
 		wm.addSentence(builder.toString());
 		
+                System.out.println(wm.getStructure());
 		System.out.println(wm.getSentence());
 	}
 }
