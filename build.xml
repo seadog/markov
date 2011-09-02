@@ -38,7 +38,7 @@
 
 	<target name="clean" description="Clean compile and dist">
         <delete dir="${build}"/>
-		<delete dir="${dist}"/>
+		<delete file="${dist}/markov-${version}.jar"/>
 	</target>
 
 	<target name="run" depends="dist" description="Run the program">
