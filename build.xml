@@ -14,7 +14,7 @@
         <path id="classpath">
                 <fileset dir="${lib}" includes="**/*.jar"/>
         </path>
-	
+
 	<target name="init">
 		<tstamp/>
 		<mkdir dir="${build}"/>
@@ -33,7 +33,6 @@
 	                	<attribute name="Class-Path" value=""/>
 	                </manifest>
 	        </jar>
-		<copy file="${dist}/markov-${version}.jar" tofile="../MarkovBot/lib/markov-${version}.jar" />
 	</target>
 
 	<target name="clean" description="Clean compile and dist">
