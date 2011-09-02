@@ -26,6 +26,8 @@
 
 	<target name="dist" depends="compile" description="Create JAR file">
 		<mkdir dir="${dist}"/>
+                <mkdir dir="${lib}" />
+
 	        <jar destfile="${dist}/markov-${version}.jar" basedir="${build}">
 	        	<zipgroupfileset dir="${lib}" includes="*.jar"/>
 	                <manifest>
