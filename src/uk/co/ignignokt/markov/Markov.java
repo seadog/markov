@@ -8,7 +8,7 @@ import uk.co.ignignokt.markov.word.WordList;
 
 public class Markov {
 
-        WordList master = new WordList();
+        private WordList master = new WordList();
 
         public void addSentence(String sentence) {
                 sentence = sentence.trim();
