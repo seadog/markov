@@ -65,7 +65,7 @@
         </target>
 
         <target name="test" depends="compiletest" description="Test project">
-                <junit fork="yes" printsummary="false" showoutput="true" errorProperty="test.failed" failureProperty="test.failed" filtertrace="false">
+                <junit fork="yes" haltonfailure="yes" printsummary="false" showoutput="true" errorProperty="test.failed" failureProperty="test.failed" filtertrace="false">
                         <formatter usefile="false" type="brief"/>
                         <formatter type="xml"/>
                         <classpath refid="test.classpath" />
