@@ -7,13 +7,22 @@
         <property name="src" location="src"/>
         <property name="build" location="build"/>
         <property name="dist" location="dist"/>
-
         <property name="lib" location="lib"/>
+        <property name="test" location="test"/>
+        <property name="buildtest" location="buildtest"/>
 
         <property name="version" value="0.1"/>
 
-        <path id="classpath">
-                <fileset dir="${lib}" includes="**/*.jar"/>
+        <property name="testname" value="uk.co.ignignokt.markov.word.MarkovTestSuite" />
+
+        <path id="run.classpath">
+
+        </path>
+
+        <path id="test.classpath">
+                <pathelement location="${build}" />
+                <pathelement location="${buildtest}" />
+                <pathelement location="${lib}/junit.jar" />
         </path>
 
         <target name="init">
@@ -21,10 +30,15 @@
                 <mkdir dir="${build}"/>
                 <mkdir dir="${lib}" />
                 <mkdir dir="${dist}" />
+                <mkdir dir="${buildtest}" />
         </target>
 
         <target name="compile" depends="init" description="Compile source code">
-                <javac srcdir="${src}" destdir="${build}" classpathref="classpath" includeantruntime="false"/>
+                <javac srcdir="${src}" destdir="${build}" classpathref="run.classpath" includeantruntime="false"/>
+        </target>
+
+        <target name="compiletest" depends="compile" description="Compile test cases">
+                <javac srcdir="${test}" destdir="${buildtest}" classpathref="test.classpath" includeantruntime="false"/>
         </target>
 
         <target name="dist" depends="compile" description="Create JAR file">
@@ -39,11 +53,19 @@
 
         <target name="clean" description="Clean compile and dist">
                 <delete dir="${build}"/>
-                <delete dir="${lib}" />
                 <delete dir="${dist}" />
+                <delete dir="${buildtest}" />
         </target>
 
         <target name="run" depends="dist" description="Run the program">
                 <java fork="true" jar="${dist}/markov-${version}.jar"/>
+        </target>
+
+        <target name="test" depends="compiletest" description="Test project">
+                <junit fork="yes" haltonfailure="yes">
+                        <test name="${testname}" />
+                        <formatter type="plain" usefile="false" />
+                        <classpath refid="test.classpath" />
+                </junit>
         </target>
 </project>
