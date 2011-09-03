@@ -51,6 +51,11 @@
                 <location>dist</location>
                 <build-target>dist</build-target>
             </export>
+            <export>
+                <type>folder</type>
+                <location>buildtest</location>
+                <build-target>dist</build-target>
+            </export>
             <view>
                 <items>
                     <source-folder style="packages">
@@ -85,6 +90,7 @@
                 <package-root>test</package-root>
                 <unit-tests/>
                 <classpath mode="compile">lib/junit.jar:src</classpath>
+                <built-to>buildtest</built-to>
                 <source-level>1.5</source-level>
             </compilation-unit>
         </java-data>

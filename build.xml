@@ -55,6 +55,9 @@
                 <delete dir="${build}"/>
                 <delete dir="${dist}" />
                 <delete dir="${buildtest}" />
+                <delete>
+                        <fileset dir="." includes="**/TEST-*"/>
+                </delete>
         </target>
 
         <target name="run" depends="dist" description="Run the program">
@@ -62,9 +65,10 @@
         </target>
 
         <target name="test" depends="compiletest" description="Test project">
-                <junit fork="yes" haltonfailure="yes">
+                <junit fork="yes" printsummary="withOutAndErr" showoutput="true" errorProperty="test.failed" failureProperty="test.failed" filtertrace="false">
                         <test name="${testname}" />
-                        <formatter type="plain" usefile="false" />
+                        <formatter usefile="false" type="brief"/>
+                        <formatter type="xml"/>
                         <classpath refid="test.classpath" />
                 </junit>
         </target>
