@@ -41,7 +41,7 @@
                 <javac srcdir="${test}" destdir="${buildtest}" classpathref="test.classpath" includeantruntime="false"/>
         </target>
 
-        <target name="dist" depends="compile" description="Create JAR file">
+        <target name="dist" depends="compile,test" description="Create JAR file">
                 <jar destfile="${dist}/markov-${version}.jar" basedir="${build}">
                         <zipgroupfileset dir="${lib}" includes="*.jar"/>
                         <manifest>
