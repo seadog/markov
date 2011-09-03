@@ -15,12 +15,25 @@ public class WordListTest {
                 wordlist = new WordList();
         }
 
-        @After
-        public void tearDown() {
-        }
-
         @Test
-        public void trueTest(){
-                assertEquals(true, true);
+        public void testAddStartNull(){
+                wordlist.addWord("Hi", null, true);
+                assertEquals(wordlist.getStart().getText(), "Hi");
+        }
+        
+        @Test
+        public void testAddStart(){
+                wordlist.addWord("hi", "whatever", true);
+                assertEquals(wordlist.getStart().getText(), "hi");
+                assertEquals(wordlist.getStart().getNext().getText(), "whatever");
+        }
+        
+        @Test
+        public void testAdd(){
+                wordlist.addWord("car", "is", true);
+                wordlist.addWord("is", "blue");
+                
+                assertEquals(wordlist.getStart().getNext().getText(), "is");
+                assertEquals(wordlist.getStart().getNext().getNext().getText(), "blue");
         }
 }

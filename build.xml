@@ -65,11 +65,15 @@
         </target>
 
         <target name="test" depends="compiletest" description="Test project">
-                <junit fork="yes" printsummary="withOutAndErr" showoutput="true" errorProperty="test.failed" failureProperty="test.failed" filtertrace="false">
-                        <test name="${testname}" />
+                <junit fork="yes" printsummary="false" showoutput="true" errorProperty="test.failed" failureProperty="test.failed" filtertrace="false">
                         <formatter usefile="false" type="brief"/>
                         <formatter type="xml"/>
                         <classpath refid="test.classpath" />
+                        <batchtest fork="yes">
+                                <fileset dir="${test}">
+                                        <include name="**/*Test.java" />
+                                </fileset>
+                        </batchtest>
                 </junit>
         </target>
 </project>

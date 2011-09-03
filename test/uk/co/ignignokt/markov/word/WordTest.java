@@ -18,37 +18,26 @@ public class WordTest {
                 testerWord = new Word("tester");
         }
 
-        @After
-        public void tearDown() {
-        }
-
         @Test
         public void testGetText(){
                 assertEquals("tester", testerWord.getText());
         }
-
-        /*
-         *         public List<Word> getChildren() {
-                return next;
+        
+        @Test
+        public void testEmptySize(){
+                assertEquals(testerWord.getSize(), 0);
         }
-
-        public int getSize() {
-                return next.size();
+        
+        @Test
+        public void testAddWordSize(){
+                testerWord.addWord(new Word("Whatever"));
+                assertEquals(testerWord.getSize(), 1);
         }
-
-        public String getText() {
-                return this.text;
+        
+        @Test
+        public void testAddWordCheck(){
+                Word toAdd = new Word("Whatever");
+                testerWord.addWord(toAdd);
+                assert(testerWord.getChildren().contains(toAdd));
         }
-
-        public void addWord(Word word) {
-                next.add(word);
-        }
-
-        public Word getNext() {
-                Random generator = new Random();
-                int randomInt = generator.nextInt(next.size());
-
-                return next.get(randomInt);
-        }
-         */
 }
