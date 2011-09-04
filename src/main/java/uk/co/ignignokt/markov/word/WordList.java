@@ -41,44 +41,42 @@ public class WordList {
                 start_words = new ArrayList<Word>();
         }
 
-        public void addWord(String word, String next, boolean first) {
-                Word entry = words.get(word);
-                if (next == null) {
-                        if (entry == null) {
-                                entry = new Word(word);
-                                words.put(word, entry);
-                        }
+        public Word getWord(String strword) {
+                Word retval = words.get(strword);
 
-                        entry.addWord(null);
-
-                        if (first) {
-                                start_words.add(entry);
-                        }
-
-                        return;
+                if (retval == null) {
+                        retval = new Word(strword);
+                        words.put(strword, retval);
                 }
 
-                Word to = words.get(next);
-
-                if (entry == null) {
-                        entry = new Word(word);
-                        words.put(word, entry);
-                }
-
-                if (to == null) {
-                        to = new Word(next);
-                        words.put(next, to);
-                }
-
-                if (first) {
-                        start_words.add(entry);
-                }
-
-                entry.addWord(to);
+                return retval;
         }
 
-        public void addWord(String word, String next) {
-                addWord(word, next, false);
+        public void addWord(Word a, Word b, boolean first) {
+                if (first) {
+                        start_words.add(a);
+                }
+
+                a.addWord(b);
+        }
+
+        public void addWord(Word a, Word b) {
+                addWord(a, b, false);
+        }
+
+        public void addWord(String a, String b, boolean first) {
+                Word a2 = getWord(a);
+                Word b2 = getWord(b);
+
+                if (first) {
+                        start_words.add(a2);
+                }
+
+                a2.addWord(b2);
+        }
+
+        public void addWord(String a, String b) {
+                addWord(a, b, false);
         }
 
         public Collection<Word> getStructure() {

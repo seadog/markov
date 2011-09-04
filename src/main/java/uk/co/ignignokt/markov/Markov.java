@@ -24,7 +24,7 @@
 
 package uk.co.ignignokt.markov;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
 
 import uk.co.ignignokt.markov.word.Word;
@@ -34,45 +34,41 @@ public class Markov {
 
         private WordList master = new WordList();
 
-        public void addSentence(String sentence) {
+        private List<Word> getListOfWords(String sentence) {
                 sentence = sentence.trim();
-                String removed = sentence.replace('\n', ' ');
+                sentence = sentence.replace('\n', ' ');
 
-                String[] list = removed.split(" +");
+                String[] strlist = sentence.split(" +");
+                List<Word> wordList = new ArrayList<Word>();
 
-                for (int i = 0; i < list.length; i++) {
-                        if (i == 0 && list.length == 1) {
-                                master.addWord(list[i], null, true);
-                        } else if (i == 0) {
-                                master.addWord(list[i], list[i + 1], true);
-                        } else if (i == list.length - 1) {
-                                master.addWord(list[i], null);
-                        } else {
-                                master.addWord(list[i], list[i + 1]);
-                        }
+                for (String sword : strlist) {
+                        wordList.add(master.getWord(sword));
+                }
+
+                wordList.add(master.getWord(""));
+
+                return wordList;
+        }
+
+        public void addSentence(String sentence) {
+                List<Word> wordlist = getListOfWords(sentence);
+
+                for (int i = 0; i < wordlist.size() - 1; i++) {
+                        master.addWord(wordlist.get(i), wordlist.get(i + 1),
+                                        i == 0);
                 }
         }
 
         public String getStructure() {
                 StringBuilder retval = new StringBuilder();
 
-                Collection<Word> words = master.getStructure();
+                for (Word word : master.getStructure()) {
+                        if (word.getText().equals(""))
+                                continue;
+                        retval.append(word);
 
-                for (Word word : words) {
-                        retval.append(word.getText());
-                        retval.append("\n");
-                        List<Word> children = word.getChildren();
-
-                        for (Word child : children) {
-                                if (child == null) {
-                                        retval.append("    ");
-                                        retval.append((String) null);
-                                        retval.append("\n");
-                                } else {
-                                        retval.append("    ");
-                                        retval.append(child.getText());
-                                        retval.append("\n");
-                                }
+                        for (Word child : word.getChildren()) {
+                                retval.append("    " + child.toString());
                         }
                 }
 
@@ -81,7 +77,6 @@ public class Markov {
 
         public String getLimit(int limit) {
                 StringBuilder retval = new StringBuilder();
-
                 Word current = master.getStart();
 
                 while (limit-- > 0) {
@@ -89,11 +84,10 @@ public class Markov {
                         retval.append(" ");
 
                         current = current.getNext();
-                        if (current == null) {
+                        if (current.getText().equals("")) {
                                 return retval.toString();
                         }
                 }
-
                 return retval.toString();
         }
 
@@ -102,7 +96,7 @@ public class Markov {
 
                 Word current = master.getStart();
 
-                while (current != null) {
+                while (!current.getText().equals("")) {
                         retval.append(current.getText());
                         retval.append(" ");
                         current = current.getNext();

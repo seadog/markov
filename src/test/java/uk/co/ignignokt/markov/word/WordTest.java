@@ -22,18 +22,18 @@ public class WordTest {
         public void testGetText(){
                 assertEquals("tester", testerWord.getText());
         }
-        
+
         @Test
         public void testEmptySize(){
                 assertEquals(testerWord.getSize(), 0);
         }
-        
+
         @Test
         public void testAddWordSize(){
                 testerWord.addWord(new Word("Whatever"));
                 assertEquals(testerWord.getSize(), 1);
         }
-        
+
         @Test
         public void testAddWordCheck(){
                 Word toAdd = new Word("Whatever");

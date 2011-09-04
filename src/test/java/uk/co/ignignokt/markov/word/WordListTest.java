@@ -17,8 +17,8 @@ public class WordListTest {
 
         @Test
         public void testAddStartNull(){
-                wordlist.addWord("Hi", null, true);
-                assertEquals(wordlist.getStart().getText(), "Hi");
+                wordlist.addWord("hi", "", true);
+                assertEquals(wordlist.getStart().getText(), "hi");
         }
         
         @Test

@@ -34,8 +34,7 @@ public class Word {
         private List<Word> next;
 
         public Word(String text) {
-                next = new ArrayList<Word>();
-
+                this.next = new ArrayList<Word>();
                 this.text = text;
         }
 
@@ -60,5 +59,13 @@ public class Word {
                 int randomInt = generator.nextInt(next.size());
 
                 return next.get(randomInt);
+        }
+
+        @Override
+        public String toString() {
+                if (text.equals("")) {
+                        return "null\n";
+                }
+                return text + "\n";
         }
 }
