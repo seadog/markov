@@ -25,32 +25,84 @@
 package uk.co.ignignokt.markov;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
-import uk.co.ignignokt.markov.word.Word;
-import uk.co.ignignokt.markov.word.WordList;
+import java.util.Map;
+import java.util.Random;
 
 /**
- * Markov chain output class.
+ * Class that represents a markov chain.
  * 
- * Class that interfaces with the Word and WordList classes in order to
- * generate the markov chain.
- * 
- * @see uk.co.ignignokt.markov.word.Word
- * @see uk.co.ignignokt.markov.word.WordList
+ * This class can be iterated over, which will yield a full sentence.
  */
-public class Markov {
+public class Chain {
+
+        private Map<String, Word> words;
+        private List<Word> start_words;
 
         /**
-         * The WordList used to store our Word objects.
+         * Construct the WordList object.
          */
-        private WordList master;
+        public Chain() {
+                words = new HashMap<String, Word>();
+                start_words = new ArrayList<Word>();
+        }
 
         /**
-         * Constructor, takes no arguments and simply gives us the object.
+         * Either get the word with that text, or create and add a word with
+         * that text.
+         * 
+         * @param strword The string representation of the word
+         * @return The Word object created or found.
          */
-        public Markov() {
-                this.master = new WordList();
+        public Word getWord(String strword) {
+                Word retval = words.get(strword);
+
+                if (retval == null) {
+                        retval = new Word(strword);
+                        words.put(strword, retval);
+                }
+
+                return retval;
+        }
+
+        /**
+         * Add a word to the markov chain.
+         * 
+         * @param a The first word.
+         * @param b The word the add to the first.
+         * @param first Is the first word the start of the sentence?
+         */
+        public void addWord(Word a, Word b, boolean first) {
+                if (first) {
+                        start_words.add(a);
+                }
+
+                a.addWord(b);
+        }
+
+        /**
+         * Add a word to the markov chain.
+         * 
+         * This version assumes it's not the start of a sentence.
+         * 
+         * @param a The first word to add
+         * @param b The word to add to the first.
+         */
+        public void addWord(Word a, Word b) {
+                addWord(a, b, false);
+        }
+
+        /**
+         * Get the first word of a sentence.
+         * 
+         * @return Word object that is the start of a sentence.
+         */
+        public Word getStart() {
+                Random generator = new Random();
+                int randomInt = generator.nextInt(start_words.size());
+
+                return start_words.get(randomInt);
         }
 
         /**
@@ -67,14 +119,14 @@ public class Markov {
                 List<Word> wordList = new ArrayList<Word>();
 
                 for (String sword : strlist) {
-                        wordList.add(master.getWord(sword));
+                        wordList.add(this.getWord(sword));
                 }
 
-                wordList.add(master.getWord(""));
+                wordList.add(this.getWord(""));
 
                 return wordList;
         }
-
+        
         /**
          * Adds a given sentence to the markov chain.
          * 
@@ -85,11 +137,11 @@ public class Markov {
          * 
          * @param sentence The sentence to add to the chain.
          */
-        public void addSentence(String sentence) {
+        public void addSentence(String sentence){
                 List<Word> wordlist = getListOfWords(sentence);
 
                 for (int i = 0; i < wordlist.size() - 1; i++) {
-                        master.addWord(wordlist.get(i), wordlist.get(i + 1),
+                        this.addWord(wordlist.get(i), wordlist.get(i + 1),
                                         i == 0);
                 }
         }
@@ -107,7 +159,7 @@ public class Markov {
         public String getStructure() {
                 StringBuilder retval = new StringBuilder();
 
-                for (Word word : master.getStructure()) {
+                for (Word word : this.words.values()) {
                         if (word.getText().equals("")) {
                                 continue;
                         }
@@ -125,28 +177,6 @@ public class Markov {
         /**
          * Generates a markov chain sentence.
          * 
-         * The limit of words is either limit or when it hits an
-         * end of sentence word, whichever comes first.
-         * 
-         * @param limit The maximum number of words in the sentence.
-         * @return A sentence generated from the markov chain.
-         */
-        public String getLimit(int limit) {
-                StringBuilder retval = new StringBuilder();
-                
-                int i = 0;
-                for(Word x : master){
-                        if(i++ > limit) return retval.toString();
-                        retval.append(x.getText());
-                        retval.append(' ');
-                }
-
-                return retval.toString();
-        }
-
-        /**
-         * Generates a markov chain sentence.
-         * 
          * There is no limit to the length of this generated
          * sentence, but, depending on your input it shouldn't
          * be anything to worry about.
@@ -155,12 +185,42 @@ public class Markov {
          */
         public String getSentence() {
                 StringBuilder retval = new StringBuilder();
-
-                for(Word x : master){
-                        retval.append(x.getText());
+                Word loop = this.getStart();
+                
+                while(!loop.isEnd()){
+                        retval.append(loop.getText());
                         retval.append(' ');
+                        loop = loop.getNext();
                 }
+                
+                return retval.toString();
+        }
+        
+        /**
+         * Generates a markov chain sentence.
+         * 
+         * The limit of words is either limit or when it hits an
+         * end of sentence word, whichever comes first.
+         * 
+         * @param limit The maximum number of words in the sentence.
+         * @return A sentence generated from the markov chain.
+         */
+        public String getSentence(int limit) {
+                StringBuilder retval = new StringBuilder();
+                Word loop = this.getStart();
+                
+                int i = 0;
+                
+                while(!loop.isEnd()){
+                        if(i++ > limit) return retval.toString();
+                        retval.append(loop.getText());
+                        retval.append(' ');
+                        loop = loop.getNext();
+                }
+
 
                 return retval.toString();
         }
 }
+
+

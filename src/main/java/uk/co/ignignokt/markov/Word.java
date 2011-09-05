@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-package uk.co.ignignokt.markov.word;
+package uk.co.ignignokt.markov;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,7 @@ import java.util.Random;
  * be careful meddling with any protected methods here as they should be called
  * from WordList only.
  */
-public class Word {
+class Word {
 
         private String text;
         private List<Word> next;

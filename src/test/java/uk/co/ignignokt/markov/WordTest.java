@@ -2,9 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package uk.co.ignignokt.markov.word;
+package uk.co.ignignokt.markov;
 
 import org.junit.*;
+
+import uk.co.ignignokt.markov.Word;
 import static org.junit.Assert.*;
 
 public class WordTest {

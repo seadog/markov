@@ -32,7 +32,7 @@ import uk.co.ignignokt.markov.external.*;
 
 public class Main {
         public static void main(String[] args) throws IOException {
-                Markov wm = new Markov();
+                Chain words = new Chain();
 
                 FileInputStream fis = new FileInputStream("data.txt");
                 UnicodeReader ur = new UnicodeReader(fis, "UTF-8");
@@ -40,10 +40,10 @@ public class Main {
 
                 String line;
                 while ((line = br.readLine()) != null) {
-                        wm.addSentence(line);
+                        words.addSentence(line);
                 }
 
-                System.out.println(wm.getStructure());
-                System.out.println(wm.getSentence());
+                System.out.println(words.getStructure());
+                System.out.println(words.getSentence());
         }
 }
