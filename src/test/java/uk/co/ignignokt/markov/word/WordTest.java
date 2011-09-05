@@ -38,6 +38,6 @@ public class WordTest {
         public void testAddWordCheck(){
                 Word toAdd = new Word("Whatever");
                 testerWord.addWord(toAdd);
-                assert(testerWord.getChildren().contains(toAdd));
+                assertTrue(testerWord.getChildren().contains(toAdd));
         }
 }
