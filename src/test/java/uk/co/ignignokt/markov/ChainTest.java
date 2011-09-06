@@ -45,4 +45,12 @@ public class ChainTest {
                 assertEquals(wordlist.getStart().getNext().getText(), "is");
                 assertEquals(wordlist.getStart().getNext().getNext().getText(), "blue");
         }
+        
+        @Test
+        public void testPrependSpaces(){
+                wordlist.addSentence("   car    is     blue");
+                
+                assertEquals(wordlist.getStart().getNext().getText(), "is");
+                assertEquals(wordlist.getStart().getNext().getNext().getText(), "blue");
+        }
 }
