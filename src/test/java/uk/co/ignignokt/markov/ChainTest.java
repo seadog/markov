@@ -37,4 +37,12 @@ public class ChainTest {
                 assertEquals(wordlist.getStart().getNext().getText(), "is");
                 assertEquals(wordlist.getStart().getNext().getNext().getText(), "blue");
         }
+        
+        @Test
+        public void testAddSpaces(){
+                wordlist.addSentence("car      is                        blue");
+                
+                assertEquals(wordlist.getStart().getNext().getText(), "is");
+                assertEquals(wordlist.getStart().getNext().getNext().getText(), "blue");
+        }
 }
