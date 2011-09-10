@@ -4,6 +4,8 @@
  */
 package uk.co.ignignokt.markov;
 
+import java.security.SecureRandom;
+
 import org.junit.*;
 
 import uk.co.ignignokt.markov.Chain;
@@ -27,30 +29,30 @@ public class ChainTest {
         public void testAddStart(){
                 wordlist.addSentence("hi whatever");
                 assertEquals(wordlist.getStart().getText(), "hi");
-                assertEquals(wordlist.getStart().getNext().getText(), "whatever");
+                assertEquals(wordlist.getStart().getNext(wordlist.getGenerator()).getText(), "whatever");
         }
         
         @Test
         public void testAdd(){
                 wordlist.addSentence("car is blue");
                 
-                assertEquals(wordlist.getStart().getNext().getText(), "is");
-                assertEquals(wordlist.getStart().getNext().getNext().getText(), "blue");
+                assertEquals(wordlist.getStart().getNext(wordlist.getGenerator()).getText(), "is");
+                assertEquals(wordlist.getStart().getNext(wordlist.getGenerator()).getNext(wordlist.getGenerator()).getText(), "blue");
         }
         
         @Test
         public void testAddSpaces(){
                 wordlist.addSentence("car      is                        blue");
                 
-                assertEquals(wordlist.getStart().getNext().getText(), "is");
-                assertEquals(wordlist.getStart().getNext().getNext().getText(), "blue");
+                assertEquals(wordlist.getStart().getNext(wordlist.getGenerator()).getText(), "is");
+                assertEquals(wordlist.getStart().getNext(wordlist.getGenerator()).getNext(wordlist.getGenerator()).getText(), "blue");
         }
         
         @Test
         public void testPrependSpaces(){
                 wordlist.addSentence("   car    is     blue");
                 
-                assertEquals(wordlist.getStart().getNext().getText(), "is");
-                assertEquals(wordlist.getStart().getNext().getNext().getText(), "blue");
+                assertEquals(wordlist.getStart().getNext(wordlist.getGenerator()).getText(), "is");
+                assertEquals(wordlist.getStart().getNext(wordlist.getGenerator()).getNext(wordlist.getGenerator()).getText(), "blue");
         }
 }

@@ -95,10 +95,10 @@ class Word {
          * This method uses java's built in random generator, not sure
          * how good it is in terms of uniform output.
          * 
+         * @param generator A random number generator.
          * @return Next word in the chain.
          */
-        public Word getNext() {
-                Random generator = new Random();
+        public Word getNext(Random generator) {
                 int randomInt = generator.nextInt(next.size());
 
                 return next.get(randomInt);

@@ -24,6 +24,7 @@
 
 package uk.co.ignignokt.markov;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,6 +37,8 @@ import java.util.Random;
  * This class can be iterated over, which will yield a full sentence.
  */
 public class Chain {
+        
+        private SecureRandom randomGenerator;
 
         private Map<String, Word> words;
         private List<Word> start_words;
@@ -46,6 +49,8 @@ public class Chain {
         public Chain() {
                 words = new HashMap<String, Word>();
                 start_words = new ArrayList<Word>();
+                randomGenerator = new SecureRandom();
+                randomGenerator.setSeed(System.currentTimeMillis());
         }
 
         /**
@@ -64,6 +69,15 @@ public class Chain {
                 }
 
                 return retval;
+        }
+        
+        /**
+         * Get the random number generator used by chain.
+         * 
+         * @return The generator.
+         */
+        public Random getGenerator(){
+                return this.randomGenerator;
         }
 
         /**
@@ -99,8 +113,7 @@ public class Chain {
          * @return Word object that is the start of a sentence.
          */
         public Word getStart() {
-                Random generator = new Random();
-                int randomInt = generator.nextInt(start_words.size());
+                int randomInt = randomGenerator.nextInt(start_words.size());
 
                 return start_words.get(randomInt);
         }
@@ -190,7 +203,7 @@ public class Chain {
                 while(!loop.isEnd()){
                         retval.append(loop.getText());
                         retval.append(' ');
-                        loop = loop.getNext();
+                        loop = loop.getNext(randomGenerator);
                 }
                 
                 return retval.toString();
@@ -215,9 +228,8 @@ public class Chain {
                         if(i++ > limit) return retval.toString();
                         retval.append(loop.getText());
                         retval.append(' ');
-                        loop = loop.getNext();
+                        loop = loop.getNext(randomGenerator);
                 }
-
 
                 return retval.toString();
         }
